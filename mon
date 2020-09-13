@@ -1,0 +1,29 @@
+#!/bin/bash
+
+#fakeAp
+function fakeAp(){
+echo "Choose Target "
+read -p "BSSID   [*]Example 00:A9:5B:xx:xx:xx: " bsid;
+read -p "ESSID   [*]Example EvilFakeAp: " ssid;
+read -p "Channel [*]Example 11: " c;
+echo
+echo "bssid    :$bsid"
+echo "essid    :$ssid"
+echo "Channel  :$c"
+echo
+echo "Create Fake App"
+sleep 1
+airbase-ng -a $bsid --essid "$ssid" -c $c wlan1
+}
+
+#error
+function error(){
+if [ -e $o ]; then
+echo "No Wireles Card"
+else
+bash evil
+fi
+}
+
+airodump-ng wlan1
+fakeAp

