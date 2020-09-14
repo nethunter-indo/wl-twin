@@ -1,6 +1,0 @@
-#!/bin/bash
-
-echo "Starting Server"
-/etc/init.d/apache2 restart > /dev/null 2>&1
-
-

@@ -1,0 +1,11 @@
+#!/bin/bash
+touch /log/dhcpd.leases
+
+echo "Starting Server"
+
+killall dhcpd > /dev/null 2>&1
+fuser -n tcp -k 53 67 80  > /dev/null 2>&1
+fuser -n udp -k 53 67 80  > /dev/null 2>&1
+
+dhcpd -d -f -lf "/log/dhcpd.leases" -cf "/log/dhcpd.conf" wlan1 > /dev/null 2>&1
+lighttpd -f /log/lighttpd.conf > /dev/null 2>&1

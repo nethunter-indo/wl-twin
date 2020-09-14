@@ -1,0 +1,20 @@
+# The format of this file is documented in the dhcpd.leases(5) manual page.
+# This lease file was written by isc-dhcp-4.4.1
+
+# authoring-byte-order entry is generated, DO NOT DELETE
+authoring-byte-order little-endian;
+
+server-duid "\000\001\000\001&\362Ho4\316\000\022s%";
+
+lease 192.168.1.100 {
+  starts 1 2020/09/14 15:28:25;
+  ends 1 2020/09/14 15:38:25;
+  cltt 1 2020/09/14 15:28:25;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet f4:60:e2:bf:56:de;
+  uid "\001\364`\342\277V\336";
+  set vendor-class-identifier = "android-dhcp-9";
+  client-hostname "Redmi6Pro-Redmi6Pro";
+}
