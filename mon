@@ -1,5 +1,5 @@
 #!/bin/bash
-
+rm -r mac.txt > /dev/null 2>&1
 #fakeAp
 function fakeAp(){
 echo "Choose Target "
@@ -10,7 +10,7 @@ echo
 echo "bssid    :$bsid"
 echo "essid    :$ssid"
 echo "Channel  :$c"
-echo
+echo $bsid > mac.txt
 echo "Create Fake App"
 sleep 1
 airbase-ng -a $bsid --essid "$ssid" -c $c wlan1
