@@ -1,0 +1,30 @@
+#!/bin/bash
+kill="killall dnsmasq dhcp isc-dhcp-server"
+IP="192.168.1.1"
+WIFI="wlan0"
+
+#iptables
+function iptables(){
+ifconfig $WIFI up
+ifconfig $WIFI $IP netmask 255.255.255.0
+sleep 1
+echo 1 > /proc/sys/net/ipv4/ip_forward
+sleep 1
+iptables --flush
+iptables --table nat --flush
+iptables --delete-chain
+iptables --table nat --delete-chain
+iptables -P FORWARD ACCEPT
+sleep1
+iptables -t nat -A PREROUTING -p tcp --dport 80 -j DNAT --to-destination $IP:80
+iptables -t nat -A PREROUTING -p tcp --dport 443 -j DNAT --to-destination $IP:443
+iptables -A INPUT -p tcp --sport 443 -j ACCEPT
+iptables -A OUTPUT -p tcp --dport 443 -j ACCEPT
+iptables -t nat -A POSTROUTING -j MASQUERADE
+
+}
+
+$kill
+iptables
+sleep 3
+dnsmasq -C /etc/dnsmasq.conf -d
